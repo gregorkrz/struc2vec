@@ -445,7 +445,7 @@ def exec_bfs(G,workers,calcUntilLayer):
 
         part = 1
         for c in chunks:
-            print(G, c, calcUntilLayer)
+            #print(G, c, calcUntilLayer)
             job = executor.submit(getDegreeListsVertices,G,c,calcUntilLayer)
             futures[job] = part
             part += 1
