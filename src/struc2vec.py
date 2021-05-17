@@ -146,7 +146,7 @@ class Graph():
         count_calc = 0
 
         G = self.G
-        vertices = G.keys()
+        vertices = list(G.keys())
 
         parts = self.workers
         chunks = partition(vertices,parts)
@@ -217,15 +217,13 @@ class Graph():
     def simulate_walks(self,num_walks,walk_length):
 
         # for large graphs, it is serially executed, because of memory use.
-        if(len(self.G) > 500000):
-
+        if(len(self.G) > 100000):
             with ProcessPoolExecutor(max_workers=1) as executor:
                 job = executor.submit(generate_random_walks_large_graphs,num_walks,walk_length,self.workers,list(self.G.keys()))
 
                 job.result()
 
         else:
-
             with ProcessPoolExecutor(max_workers=1) as executor:
                 job = executor.submit(generate_random_walks,num_walks,walk_length,self.workers,list(self.G.keys()))
 
